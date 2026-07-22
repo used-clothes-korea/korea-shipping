@@ -1,8 +1,9 @@
-
-const cfg=window.SITE_CONFIG||{};
-addEventListener('DOMContentLoaded',()=>{document.querySelector('.menu')?.addEventListener('click',()=>document.querySelector('.nav')?.classList.toggle('open'));document.querySelectorAll('[data-kakao-id]').forEach(e=>e.textContent=cfg.kakaoId);document.querySelectorAll('[data-kakao-qr]').forEach(e=>e.src=cfg.kakaoQr);document.querySelectorAll('[data-judress]').forEach(e=>e.href=cfg.judressUrl);const s=document.querySelector('#pickupTime');if(s)cfg.pickupTimes.forEach(t=>s.insertAdjacentHTML('beforeend',`<option>${t}</option>`));renderShip()});
-function login(){if(document.querySelector('#password').value===cfg.password){sessionStorage.auth='1';location.href='home.html'}else document.querySelector('#loginError').textContent='パスワードが違います。'}
-function saveShip(){let d={};for(const id of ['name','postal','address','phone']){let e=document.querySelector('#'+id);if(!e.value.trim()){alert('未入力の項目があります。');e.focus();return}d[id]=e.value.trim()}sessionStorage.ship=JSON.stringify(d);location.href='step5.html'}
-function renderShip(){let b=document.querySelector('#shippingMessage');if(!b)return;let d=JSON.parse(sessionStorage.ship||'{}');b.textContent=cfg.shippingTemplate.replace('{{name}}',d.name||'').replace('{{postal}}',d.postal||'').replace('{{address}}',d.address||'').replace('{{phone}}',d.phone||'')}
-async function copyText(id){await navigator.clipboard.writeText(document.querySelector('#'+id).innerText);let s=document.querySelector('#copyStatus');s?.classList.remove('hide');setTimeout(()=>s?.classList.add('hide'),2000)}
-function pickup(){let d=document.querySelector('#pickupDate').value,t=document.querySelector('#pickupTime').value;if(!d||!t)return alert('日付と時間を選択してください。');document.querySelector('#pickupMessage').textContent=`안녕하세요.\n픽업을 부탁드립니다.\n희망 날짜: ${d}\n희망 시간: ${t}\n${cfg.pickupAppendMessage}`;document.querySelector('#pickupOutput').classList.remove('hide')}
+const $=s=>document.querySelector(s);
+document.addEventListener('DOMContentLoaded',()=>{
+  const menu=$('.menu'),nav=$('.nav'); if(menu&&nav) menu.onclick=()=>nav.classList.toggle('open');
+  const login=$('#loginForm'); if(login) login.addEventListener('submit',e=>{e.preventDefault(); const p=$('#password').value; if(p==='TNF0125'){sessionStorage.setItem('ksg-auth','1');location.href='home.html'}else $('#error').textContent='パスワードが違います。'});
+  if(document.body.dataset.protected==='true'&&!sessionStorage.getItem('ksg-auth')) location.replace('index.html');
+  document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const t=document.querySelector(b.dataset.copy)?.innerText||'';await navigator.clipboard.writeText(t);const old=b.textContent;b.textContent='コピーしました';setTimeout(()=>b.textContent=old,1300)});
+  const reserve=$('#reserveForm'); if(reserve) reserve.addEventListener('submit',e=>{e.preventDefault();const d=$('#pickupDate').value,h=$('#pickupHour').value;$('#reserveMessage').textContent=`안녕하세요.\n호텔에서 짐 수거를 예약하고 싶습니다.\n희망 날짜: ${d}\n희망 시간: ${h}시\n호텔 명함 사진과 짐 사진을 함께 보내드리겠습니다.\n감사합니다.`;$('#reserveResult').classList.remove('hide');});
+  const ship=$('#shipForm'); if(ship) ship.addEventListener('submit',e=>{e.preventDefault();const v=id=>document.querySelector(id).value.trim();$('#shipMessage').textContent=`[일본 배송 요청]\n\n성명: ${v('#name')}\n우편번호: ${v('#zip')}\n주소: ${v('#address')}\n전화번호: ${v('#phone')}\n\n일본으로 배송 부탁드립니다.`;$('#shipResult').classList.remove('hide');});
+});
