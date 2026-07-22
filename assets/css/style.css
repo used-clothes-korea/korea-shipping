@@ -61,3 +61,52 @@ body:has(.login){background:#f4f7fb;}
 .login-description{margin:0;color:var(--m);}
 .login-open-btn{width:100%;margin:16px 0 0;max-width:none;}
 @media(max-height:700px){.login{padding:10px!important}.login-wrap{max-width:380px}.login-card{padding:14px}.login-card h1{font-size:24px}.login-open-btn{min-height:48px;margin-top:12px}}
+
+/* Final top-page layout: show the complete image at a modest size and keep the button nearby. */
+body:has(main.login){background:#f4f7fb!important;}
+main.login{
+  min-height:100svh!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  padding:16px!important;
+  background:#f4f7fb!important;
+}
+main.login .login-wrap{
+  width:min(430px,100%)!important;
+  margin:0 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+main.login .login-hero-image{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:min(42svh,420px)!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0 auto!important;
+  border-radius:16px!important;
+}
+main.login .login-card{
+  width:100%!important;
+  margin:0!important;
+  padding:16px!important;
+  background:#fff!important;
+  text-align:center!important;
+  border-radius:18px!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.08)!important;
+}
+main.login .login-card h1{margin:0 0 4px!important;font-size:26px!important;line-height:1.3!important;}
+main.login .login-description{margin:0!important;color:#64748b!important;}
+main.login .login-open-btn{width:100%!important;max-width:none!important;margin:14px 0 0!important;min-height:52px!important;}
+@media (max-height:700px){
+  main.login{padding:10px!important;}
+  main.login .login-hero-image{max-height:34svh!important;}
+  main.login .login-card{padding:13px!important;}
+  main.login .login-card h1{font-size:23px!important;}
+  main.login .login-open-btn{margin-top:10px!important;min-height:48px!important;}
+}
