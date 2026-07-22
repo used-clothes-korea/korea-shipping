@@ -9,20 +9,23 @@
 </head>
 <body>
   <main class="login">
-    <section class="loginbox login-intro">
+    <section class="login-intro-screen">
       <h1>韓国発送ガイド</h1>
-      <p class="login-description">発送手順をご案内します。</p>
-      <button id="showLogin" class="btn primary" type="button" aria-controls="passwordPanel" aria-expanded="false">発送ガイドを開く</button>
+      <button id="showLogin" class="btn primary login-open-btn" type="button" aria-controls="passwordModal" aria-expanded="false">発送ガイドを開く</button>
+    </section>
 
-      <div id="passwordPanel" class="password-panel hide" aria-hidden="true">
-        <p class="password-title">パスワードを入力してください</p>
+    <div id="passwordModal" class="login-modal hide" aria-hidden="true">
+      <div class="login-modal-backdrop" data-close-login></div>
+      <section class="loginbox login-modal-card" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
+        <button class="login-modal-close" type="button" aria-label="閉じる" data-close-login>×</button>
+        <p id="passwordTitle" class="password-title">パスワードを入力してください</p>
         <form id="loginForm">
           <div class="form"><input id="password" type="password" autocomplete="current-password" placeholder="パスワード" aria-label="パスワード"></div>
           <button class="btn primary" type="submit">ログイン</button>
           <p id="error" class="err" role="alert"></p>
         </form>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
   <script src="assets/js/app.js"></script>
 </body>
