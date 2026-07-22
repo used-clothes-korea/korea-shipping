@@ -22,3 +22,10 @@
 
 ## 管理者ページについて
 `admin.html` は画面設計の試作です。GitHub Pagesは静的サイトのため、管理画面からの変更をオンライン保存するには、将来的にFirebase、Supabase、CMS等が必要です。
+
+
+## Final revisions
+- Removed embedded shortcut/menu bars from guide images.
+- Updated STEP1 handwritten monochrome label sample.
+- Added hotel business card sample and Korean-address/phone fallback instructions.
+- Removed STEP5.
