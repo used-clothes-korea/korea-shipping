@@ -22,7 +22,7 @@ main{max-width:760px;margin:auto;padding:18px 14px 48px}.hero,.card{background:#
 @keyframes loginReveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 
 /* Completed login screen */
-.login{position:relative;min-height:100svh;display:grid;place-items:center;padding:24px;background:linear-gradient(#061a3d55,#061a3daa),url('../images/login-bg-clean.jpg') center/cover no-repeat}
+.login{position:relative;min-height:100svh;display:grid;place-items:center;padding:24px;background-color:#061a3d;background-image:linear-gradient(#061a3d33,#061a3d77),url('../images/login-bg-clean.jpg');background-position:center;background-size:contain;background-repeat:no-repeat}
 .login-intro-screen{width:min(440px,100%);text-align:center;color:#fff;text-shadow:0 3px 18px #000}
 .login-intro-screen h1{font-size:clamp(34px,9vw,52px);line-height:1.25;margin:0 0 34px;font-weight:900;letter-spacing:.03em}
 .login-open-btn{max-width:360px;margin:0 auto;box-shadow:0 12px 30px #0007;text-shadow:none}
@@ -32,3 +32,14 @@ main{max-width:760px;margin:auto;padding:18px 14px 48px}.hero,.card{background:#
 .login-modal-card .password-title{text-align:center;font-size:18px}
 .login-modal-close{position:absolute;top:10px;right:12px;width:38px;height:38px;border:0;background:transparent;font-size:30px;line-height:1;color:#64748b;cursor:pointer}
 body.modal-open{overflow:hidden}
+
+
+/* Final completion message and reference-photo tips */
+.completion-message{margin-top:14px;padding:16px;border-radius:14px;background:#eef5ff;border:1px solid #b6d0ff}
+.completion-message h3{margin:0 0 8px;font-size:19px;color:var(--n)}
+.completion-message p{margin:7px 0}
+.photo-tips{margin-top:14px;padding:16px;border-radius:14px;background:#fff;border:1px solid #b6d0ff}
+.photo-tips h3{margin:0 0 10px;color:var(--b)}
+.photo-tips .steps{gap:12px}
+.photo-tips .row p{margin:3px 0 0;color:var(--m)}
+@media(max-width:480px){.completion-message,.photo-tips{padding:14px}.completion-message h3{font-size:18px}}
