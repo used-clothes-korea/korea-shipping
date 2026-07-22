@@ -7,23 +7,23 @@
   <title>韓国発送ガイド</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-  <main class="login login-final">
+<body class="login-page">
+  <main class="login login-direct">
     <section class="login-visual" aria-label="韓国発送ガイド ログイン">
-      <img class="login-final-image" src="assets/images/login-bg-clean.jpg" alt="韓国の夜の街並み">
-      <div class="login-overlay"></div>
-      <section class="loginbox login-final-card">
-        <h1>韓国発送ガイド</h1>
-        <p class="login-final-description">発送ガイドをご利用いただくには、<br>パスワードを入力してください。</p>
-        <form id="loginForm">
-          <div class="form">
-            <label class="sr-only" for="password">パスワード</label>
-            <input id="password" type="password" autocomplete="current-password" placeholder="パスワードを入力" aria-label="パスワード" required>
-          </div>
-          <button class="btn primary" type="submit">ログイン</button>
-          <p id="error" class="err" role="alert" aria-live="polite"></p>
-        </form>
-      </section>
+      <img class="login-hero-image" src="assets/images/login-bg-clean.jpg" alt="韓国の街並み">
+      <div class="login-overlay">
+        <div class="login-overlay-card">
+          <h1>韓国発送ガイド</h1>
+          <p>発送ガイドをご利用いただくには、<br>パスワードを入力してください。</p>
+          <form id="loginForm">
+            <div class="form">
+              <input id="password" type="password" autocomplete="current-password" placeholder="パスワードを入力" aria-label="パスワード" required>
+            </div>
+            <button class="btn primary" type="submit">ログイン</button>
+            <p id="error" class="err" role="alert"></p>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
   <script src="assets/js/app.js"></script>
