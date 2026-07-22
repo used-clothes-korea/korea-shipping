@@ -44,13 +44,20 @@ body.modal-open{overflow:hidden}
 .photo-tips .row p{margin:3px 0 0;color:var(--m)}
 @media(max-width:480px){.completion-message,.photo-tips{padding:14px}.completion-message h3{font-size:18px}}
 
+/* login rebuild */
+.login{background:#f4f7fb!important;display:block!important;min-height:100vh!important;padding:20px!important}
+.login-wrap{max-width:430px;margin:0 auto}
+.login-hero-image{width:100%;height:auto;display:block;border-radius:18px}
+.login-card{text-align:center;background:#fff;border-radius:18px;padding:20px;margin-top:14px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.login-open-btn{margin-top:18px;width:100%}
 
-/* Final login layout: normal image element, no cropping or background zoom */
-.login-page{min-height:100svh;background:#f4f7fb;padding:0 0 36px}
-.login-page .login-intro-screen{width:min(760px,100%);margin:0 auto;text-align:center;color:var(--t);text-shadow:none}
-.login-main-image{display:block;width:100%;height:auto;object-fit:contain;background:#061a3d}
-.login-intro-content{padding:26px 20px 10px}
-.login-intro-content h1{font-size:clamp(30px,8vw,44px);line-height:1.25;margin:0 0 8px;font-weight:900;letter-spacing:.03em}
-.login-intro-content p{margin:0 0 22px;color:var(--m)}
-.login-page .login-open-btn{max-width:360px;margin:0 auto;box-shadow:0 10px 24px #0a255133;text-shadow:none}
-@media(min-width:760px){.login-page{padding-top:24px}.login-intro-screen{overflow:hidden;border-radius:20px;background:#fff;border:1px solid var(--l);box-shadow:0 14px 34px #0a255116}}
+/* Final login layout: full image, no crop, button directly below */
+body:has(.login){background:#f4f7fb;}
+.login{min-height:100svh!important;display:block!important;padding:16px!important;background:#f4f7fb!important;}
+.login-wrap{width:min(430px,100%);margin:0 auto;}
+.login-hero-image{display:block;width:100%;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center!important;border-radius:18px;}
+.login-card{margin-top:12px;padding:18px;background:#fff;text-align:center;border-radius:18px;box-shadow:0 8px 20px rgba(0,0,0,.08);}
+.login-card h1{margin:0 0 6px;font-size:28px;line-height:1.25;}
+.login-description{margin:0;color:var(--m);}
+.login-open-btn{width:100%;margin:16px 0 0;max-width:none;}
+@media(max-height:700px){.login{padding:10px!important}.login-wrap{max-width:380px}.login-card{padding:14px}.login-card h1{font-size:24px}.login-open-btn{min-height:48px;margin-top:12px}}
