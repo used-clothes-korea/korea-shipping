@@ -8,28 +8,23 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <main class="login">
-    <section class="login-wrap">
-      <img class="login-hero-image" src="assets/images/login-bg-clean.jpg" alt="韓国の街並み">
-      <div class="login-card">
+  <main class="login login-final">
+    <section class="login-visual" aria-label="韓国発送ガイド ログイン">
+      <img class="login-final-image" src="assets/images/login-bg-clean.jpg" alt="韓国の夜の街並み">
+      <div class="login-overlay"></div>
+      <section class="loginbox login-final-card">
         <h1>韓国発送ガイド</h1>
-        <p class="login-description">発送ガイドをご案内します。</p>
-        <button id="showLogin" class="btn primary login-open-btn" type="button" aria-controls="passwordModal" aria-expanded="false">発送ガイドを開く</button>
-      </div>
-    </section>
-
-    <div id="passwordModal" class="login-modal hide" aria-hidden="true">
-      <div class="login-modal-backdrop" data-close-login></div>
-      <section class="loginbox login-modal-card" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
-        <button class="login-modal-close" type="button" aria-label="閉じる" data-close-login>×</button>
-        <p id="passwordTitle" class="password-title">パスワードを入力してください</p>
+        <p class="login-final-description">発送ガイドをご利用いただくには、<br>パスワードを入力してください。</p>
         <form id="loginForm">
-          <div class="form"><input id="password" type="password" autocomplete="current-password" placeholder="パスワード" aria-label="パスワード"></div>
+          <div class="form">
+            <label class="sr-only" for="password">パスワード</label>
+            <input id="password" type="password" autocomplete="current-password" placeholder="パスワードを入力" aria-label="パスワード" required>
+          </div>
           <button class="btn primary" type="submit">ログイン</button>
-          <p id="error" class="err" role="alert"></p>
+          <p id="error" class="err" role="alert" aria-live="polite"></p>
         </form>
       </section>
-    </div>
+    </section>
   </main>
   <script src="assets/js/app.js"></script>
 </body>
