@@ -1,6 +1,7 @@
 const $=s=>document.querySelector(s);
 document.addEventListener('DOMContentLoaded',()=>{
   const menu=$('.menu'),nav=$('.nav'); if(menu&&nav) menu.onclick=()=>nav.classList.toggle('open');
+  const showLogin=$('#showLogin'),passwordPanel=$('#passwordPanel'); if(showLogin&&passwordPanel) showLogin.addEventListener('click',()=>{passwordPanel.classList.remove('hide');passwordPanel.setAttribute('aria-hidden','false');showLogin.setAttribute('aria-expanded','true');showLogin.classList.add('hide');setTimeout(()=>$('#password')?.focus(),260);});
   const login=$('#loginForm'); if(login) login.addEventListener('submit',e=>{e.preventDefault(); const p=$('#password').value; if(p==='TNF0125'){sessionStorage.setItem('ksg-auth','1');location.href='home.html'}else $('#error').textContent='パスワードが違います。'});
   if(document.body.dataset.protected==='true'&&!sessionStorage.getItem('ksg-auth')) location.replace('index.html');
   document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const t=document.querySelector(b.dataset.copy)?.innerText||'';await navigator.clipboard.writeText(t);const old=b.textContent;b.textContent='コピーしました';setTimeout(()=>b.textContent=old,1300)});
