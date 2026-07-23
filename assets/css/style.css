@@ -119,3 +119,6 @@ input[type="date"]{width:100%;max-width:100%;min-width:0;box-sizing:border-box;}
   .form{width:100%;overflow:hidden;}
   input[type="date"],select{display:block;width:100%;max-width:100%;min-width:0;}
 }
+
+/* Multi-person shipping flow */
+.check-panel{margin-top:16px;padding:15px;border:1px solid #b6d0ff;border-radius:14px;background:#f7fbff}.check-panel h3{margin:0 0 10px;color:var(--navy)}.check-panel label{display:flex;gap:9px;align-items:flex-start;padding:8px 0;font-weight:700}.check-panel input{width:20px;height:20px;flex:0 0 20px;margin-top:2px}.person-card{margin:16px 0;padding:16px;border:2px solid #d9e2ef;border-radius:15px;background:#fbfdff}.person-heading{display:flex;align-items:center;gap:10px;margin-bottom:8px}.person-heading>span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:900;font-size:20px}.person-heading h3{margin:0}.label-sync{padding:12px 14px;border:1px solid #a7dfb9;border-radius:12px;background:#edf9f1}.label-sync strong{font-size:18px;color:#155b2d}.remove-person{border:0;background:#fff1f0;color:var(--danger);border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}.multi-submit{margin-top:12px}
