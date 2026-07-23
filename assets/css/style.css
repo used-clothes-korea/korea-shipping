@@ -108,3 +108,14 @@ main.login.login-direct{width:100%;max-width:1040px;min-height:100svh;margin:0 a
   .menu{display:none}.nav{display:flex!important;position:static;background:none;border:0;padding:0;gap:7px}.nav a{background:none;padding:6px}
   .home-grid{grid-template-columns:1fr 1fr}.admin-grid.two{grid-template-columns:1fr 1fr}
 }
+
+/* Mobile form overflow fix and STEP1 route selection */
+.form, .form input, .form select{min-width:0;max-width:100%;}
+input[type="date"]{width:100%;max-width:100%;min-width:0;box-sizing:border-box;}
+.choice-card{scroll-margin-top:76px;}
+#single-label-guide{scroll-margin-top:76px;}
+@media(max-width:560px){
+  .card{overflow:hidden;}
+  .form{width:100%;overflow:hidden;}
+  input[type="date"],select{display:block;width:100%;max-width:100%;min-width:0;}
+}
