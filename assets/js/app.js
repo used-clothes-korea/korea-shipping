@@ -1,9 +1,20 @@
 const $=s=>document.querySelector(s);
 document.addEventListener('DOMContentLoaded',()=>{
+  if(new URLSearchParams(location.search).get('adminPreview')==='1'){try{const preview=localStorage.getItem('ksg-preview-config');if(preview)window.SITE_CONFIG=JSON.parse(preview);}catch{}}
+  const cfg=window.SITE_CONFIG||{};
+  const joinConfiguredMessage=(prefix,body,suffix)=>[prefix?.trim(),body.trim(),suffix?.trim()].filter(Boolean).join('\n\n');
+  const pageName=location.pathname.split('/').pop().replace('.html','')||'index';
+  const heroIntro=document.querySelector('.hero>p');if(heroIntro&&cfg.pageText?.[pageName])heroIntro.textContent=cfg.pageText[pageName];
+  if(pageName==='home'&&cfg.announcement?.enabled&&cfg.announcement.text){const announcement=document.createElement('section');announcement.className='notice-banner';announcement.innerHTML='<strong>お知らせ</strong><p></p>';announcement.querySelector('p').textContent=cfg.announcement.text;document.querySelector('main .hero')?.after(announcement);}
+  const imageMap={kakaoQr:'img[alt="KakaoTalk QRコード"]',singleLabel:'img[alt="袋に貼ったAIR YAMADAラベル"]',multiLabel:'img[alt="AIRと①YAMADAを記載したラベル"]',step2Bags:'img[alt="ラベルを貼った3個の発送袋"]',hotelCard:'img[alt^="ホテル名・韓国語住所"]',referenceGuide:'img[alt="荷物の量が分かる良い写真と悪い写真の例"]'};
+  Object.entries(imageMap).forEach(([key,selector])=>{const img=document.querySelector(selector);if(img&&cfg.images?.[key])img.src=cfg.images[key];});
+  document.querySelectorAll('a[href^="https://judress.tsukuenoue.com/"]').forEach(a=>{if(cfg.judressUrl)a.href=cfg.judressUrl;});
   const menu=$('.menu'),nav=$('.nav'); if(menu&&nav) menu.onclick=()=>nav.classList.toggle('open');
   if(nav&&!nav.querySelector('a[href="step5.html"]')){const step5=document.createElement('a');step5.href='step5.html';step5.textContent='STEP5';const reference=nav.querySelector('a[href="reference.html"]');nav.insertBefore(step5,reference);}
-  const kakaoId=$('#kakaoId');if(kakaoId&&window.SITE_CONFIG?.kakaoId)kakaoId.textContent=window.SITE_CONFIG.kakaoId;
-  const kakaoQr=document.querySelector('img[alt="KakaoTalk QRコード"]');if(kakaoQr&&window.SITE_CONFIG?.kakaoQr)kakaoQr.src=window.SITE_CONFIG.kakaoQr;
+  const kakaoId=$('#kakaoId');if(kakaoId&&cfg.kakaoId)kakaoId.textContent=cfg.kakaoId;
+  const kakaoQr=document.querySelector('img[alt="KakaoTalk QRコード"]');if(kakaoQr&&cfg.kakaoQr)kakaoQr.src=cfg.kakaoQr;
+  if(cfg.carrierName&&cfg.carrierName!=='Korea Shipping')document.querySelectorAll('p,strong').forEach(el=>{if(el.textContent.includes('Korea Shipping'))el.textContent=el.textContent.replaceAll('Korea Shipping',cfg.carrierName);});
+  if(kakaoId&&cfg.carrierContact){const contact=document.createElement('div');contact.className='note';contact.textContent=cfg.carrierContact;kakaoId.closest('.card')?.appendChild(contact);}
   document.querySelectorAll('.finish-box p').forEach(p=>{if(p.textContent.includes('韓国古着仕入れツアーへご参加いただき、ありがとうございました。'))p.remove();});
   document.querySelectorAll('.label-size-note').forEach(note=>{
     note.innerHTML=note.innerHTML
@@ -11,16 +22,8 @@ document.addEventListener('DOMContentLoaded',()=>{
       .replace('書き、目立つ場所に貼ってください。','書いてください。');
   });
   document.querySelectorAll('#single-label-guide .row').forEach(row=>{if(row.textContent.includes('荷物の見やすい場所へ貼る'))row.remove();});
-  document.querySelectorAll('.card h2').forEach(heading=>{
-    if(heading.textContent.trim()==='正しい例・間違った例'&&!heading.parentElement.querySelector('.step2-preview-note')){
-      const note=document.createElement('div');
-      note.className='note step2-preview-note';
-      note.innerHTML='<strong>ラベルの貼り方は、次のSTEP2で説明します。</strong><br>ここでは、複数人で発送する場合の番号と名前の付け方をご確認ください。';
-      heading.parentElement.insertBefore(note,heading);
-    }
-  });
   const showLogin=$('#showLogin'),passwordModal=$('#passwordModal'); if(showLogin&&passwordModal){const openLogin=()=>{passwordModal.classList.remove('hide');passwordModal.setAttribute('aria-hidden','false');showLogin.setAttribute('aria-expanded','true');document.body.classList.add('modal-open');setTimeout(()=>$('#password')?.focus(),120)};const closeLogin=()=>{passwordModal.classList.add('hide');passwordModal.setAttribute('aria-hidden','true');showLogin.setAttribute('aria-expanded','false');document.body.classList.remove('modal-open')};showLogin.addEventListener('click',openLogin);document.querySelectorAll('[data-close-login]').forEach(el=>el.addEventListener('click',closeLogin));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!passwordModal.classList.contains('hide'))closeLogin()});}
-  const login=$('#loginForm'); if(login) login.addEventListener('submit',e=>{e.preventDefault(); const p=$('#password').value; if(p===(window.SITE_CONFIG?.password||'tnf0125')){sessionStorage.setItem('ksg-auth','1');sessionStorage.removeItem('ksg-consent');location.href='consent.html'}else $('#error').textContent='パスワードが違います。'});
+  const login=$('#loginForm'); if(login) login.addEventListener('submit',e=>{e.preventDefault(); const p=$('#password').value; if(p===(cfg.password||'tnf0125')){sessionStorage.setItem('ksg-auth','1');sessionStorage.removeItem('ksg-consent');location.href='consent.html'}else $('#error').textContent='パスワードが違います。'});
   if(document.body.dataset.protected==='true'&&!sessionStorage.getItem('ksg-auth')) location.replace('index.html');
   if(document.body.dataset.protected==='true'&&!location.pathname.endsWith('/consent.html')&&!sessionStorage.getItem('ksg-consent')) location.replace('consent.html');
   const consentForm=$('#consentForm'),consentCheck=$('#consentCheck'),consentButton=$('#consentButton');
@@ -42,12 +45,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   }
   document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const t=document.querySelector(b.dataset.copy)?.innerText||'';await navigator.clipboard.writeText(t);const old=b.textContent;b.textContent='コピーしました';setTimeout(()=>b.textContent=old,1300)});
-  const reserve=$('#reserveForm'); if(reserve) reserve.addEventListener('submit',e=>{e.preventDefault();const d=$('#pickupDate').value,h=$('#pickupHour').value;$('#reserveMessage').textContent=`안녕하세요.
+  const pickupHour=$('#pickupHour');if(pickupHour&&Number.isFinite(Number(cfg.pickupStartHour))&&Number.isFinite(Number(cfg.pickupEndHour))){pickupHour.innerHTML='<option value="">選択してください</option>';for(let h=Number(cfg.pickupStartHour);h<=Number(cfg.pickupEndHour);h++){const option=document.createElement('option');option.value=h;option.textContent=`${h}時`;pickupHour.appendChild(option);}}
+  const reserve=$('#reserveForm'); if(reserve) reserve.addEventListener('submit',e=>{e.preventDefault();const d=$('#pickupDate').value,h=$('#pickupHour').value;const body=`안녕하세요.
 호텔에서 짐 수거를 예약하고 싶습니다.
 희망 날짜: ${d}
 희망 시간: ${h}시
 호텔 명함 사진과 짐 사진을 함께 보내드리겠습니다.
-감사합니다.`;$('#reserveResult').classList.remove('hide');});
+감사합니다.`;$('#reserveMessage').textContent=joinConfiguredMessage(cfg.pickupPrefix,body,cfg.pickupSuffix);$('#reserveResult').classList.remove('hide');});
 
   const modeNotice=$('#modeNotice'), singleCard=$('#singleFormCard'), multiCard=$('#multiFormCard');
   const singleNumberNote=singleCard?.querySelector('.note');if(singleNumberNote?.textContent.includes('一人発送の場合、番号は必要ありません。'))singleNumberNote.remove();
@@ -59,21 +63,21 @@ document.addEventListener('DOMContentLoaded',()=>{
   const showMode=mode=>{localStorage.setItem('ksg-shipping-mode',mode);modeNotice?.classList.add('hide');singleCard?.classList.toggle('hide',mode!=='single');multiCard?.classList.toggle('hide',mode!=='multi');$('#shipResult')?.classList.add('hide');if(mode==='multi'&&personCount===0){addPerson();addPerson();}};
   if(modeNotice){const saved=localStorage.getItem('ksg-shipping-mode');if(saved==='single'||saved==='multi')showMode(saved);else modeNotice.classList.remove('hide');document.querySelectorAll('[data-set-mode]').forEach(b=>b.addEventListener('click',()=>showMode(b.dataset.setMode)));}
   $('#addPerson')?.addEventListener('click',addPerson);
-  $('#shipFormSingle')?.addEventListener('submit',e=>{e.preventDefault();const v=id=>$(id).value.trim();$('#shipMessage').textContent=`[일본 배송 요청]
+  $('#shipFormSingle')?.addEventListener('submit',e=>{e.preventDefault();const v=id=>$(id).value.trim();const body=`[일본 배송 요청]
 
 성명: ${v('#singleName')}
 우편번호: ${v('#singleZip')}
 주소: ${v('#singleAddress')}
 전화번호: ${v('#singlePhone')}
 
-일본으로 배송 부탁드립니다.`;$('#shipResult').classList.remove('hide');$('#shipResult').scrollIntoView({behavior:'smooth'});});
+일본으로 배송 부탁드립니다.`;$('#shipMessage').textContent=joinConfiguredMessage(cfg.shippingPrefix,body,cfg.shippingSuffix);$('#shipResult').classList.remove('hide');$('#shipResult').scrollIntoView({behavior:'smooth'});});
   $('#shipFormMulti')?.addEventListener('submit',e=>{e.preventDefault();const cards=[...document.querySelectorAll('.person-card')];const blocks=cards.map((card,i)=>{const mark=circled(i+1),q=s=>card.querySelector(s).value.trim();return `[${mark}]
 성명: ${q('[id^="fullName"]')}
 우편번호: ${q('[id^="zip"]')}
 주소: ${q('[id^="address"]')}
-전화번호: ${q('[id^="phone"]')}`;});$('#shipMessage').textContent=`[일본 배송 요청 - 여러 명]
+전화번호: ${q('[id^="phone"]')}`;});const body=`[일본 배송 요청 - 여러 명]
 
 ${blocks.join('\n\n')}
 
-일본으로 배송 부탁드립니다.`;$('#shipResult').classList.remove('hide');$('#shipResult').scrollIntoView({behavior:'smooth'});});
+일본으로 배송 부탁드립니다.`;$('#shipMessage').textContent=joinConfiguredMessage(cfg.shippingPrefix,body,cfg.shippingSuffix);$('#shipResult').classList.remove('hide');$('#shipResult').scrollIntoView({behavior:'smooth'});});
 });

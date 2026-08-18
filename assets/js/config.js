@@ -1,10 +1,26 @@
-window.SITE_CONFIG={password:"tnf0125",kakaoId:"Korea Shipping",kakaoQr:"assets/images/kakao-qr-placeholder.svg",judressUrl:"https://judress.tsukuenoue.com/",pickupTimes:["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"],pickupAppendMessage:"호텔 명함 사진과 짐 전체가 보이는 사진도 보내겠습니다.",shippingTemplate:`안녕하세요.
-일본으로 배송을 부탁드립니다.
-아래 정보를 확인해 주세요.
-
-■ 이름 (영문): {{name}}
-■ 우편번호: {{postal}}
-■ 주소 (영문): {{address}}
-■ 전화번호: {{phone}}
-
-감사합니다!`};
+window.SITE_CONFIG={
+  password:"tnf0125",
+  adminPassword:"korea_0601",
+  kakaoId:"Korea Shipping",
+  kakaoQr:"assets/images/kakao-qr-placeholder.svg",
+  carrierName:"Korea Shipping",
+  carrierContact:"",
+  judressUrl:"https://judress.tsukuenoue.com/",
+  pickupStartHour:9,
+  pickupEndHour:20,
+  pickupPrefix:"",
+  pickupSuffix:"",
+  shippingPrefix:"",
+  shippingSuffix:"",
+  announcement:{enabled:false,text:""},
+  pageText:{
+    home:"集荷予約から日本への発送まで、順番に進めてください。",
+    step0:"発送会社のアカウントを友だち追加してください。",
+    step1:"白い紙に、黒い文字で大きくはっきり書きます。",
+    step2:"ラベルを荷物の見やすい場所へ貼り付けます。",
+    step3:"希望日と希望時間を選び、予約メッセージを作成します。",
+    step4:"日本の受取先を英語で入力し、発送メッセージを作成します。",
+    step5:"集荷当日は、以下の流れで発送が完了します。"
+  },
+  images:{}
+};
